@@ -1,0 +1,31 @@
+# Default rules an be found here:
+# https://github.com/sasstools/sass-lint/blob/develop/lib/config/sass-lint.yml
+options:
+  formatter: stylish
+  max-warnings: 0
+  merge-default-rules: true
+files:
+  include: 'src/client/**/*.scss'
+rules:
+  # Over-rides
+  class-name-format:
+    - 1
+    - convention: hyphenatedbem
+  hex-notation:
+    - 1
+    - style: uppercase
+  indentation:
+    - 2
+    - size: 2
+  max-line-length:
+    - 1
+    - length: 120
+  property-sort-order:
+    enabled: false
+  no-attribute-selectors: 1
+  space-around-operator: 2
+  space-before-bang: 2
+  space-before-brace: 2
+  space-before-colon: 2
+  space-between-parens: 2
+  zero-unit: 2

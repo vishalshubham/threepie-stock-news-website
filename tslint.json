@@ -1,5 +1,22 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:latest", "tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "rules": {
+    "max-line-length": [true, 120],
+    "object-literal-sort-keys": false,
+    "quotemark": [true, "single", "jsx-double"],
+    "interface-name": false,
+    "no-unused-expression": false,
+    "no-console": false,
+    "trailing-comma": false,
+    "jsx-no-multiline-js": false,
+    "only-arrow-functions": false,
+    "no-empty": false,
+    "no-var-requires": false,
+    "ordered-imports": false,
+    "prefer-object-spread": false,
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": [false, "redux-saga"]
+  },
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
