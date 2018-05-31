@@ -33,14 +33,11 @@ npm install --save react react-dom @types/react @types/react-dom
 ### `Development Dependencies`
 ```sh
 npm install --save-dev babel-cli babel-core babel-loader babel-preset-react
-```
-
-```sh
 npm install --save-dev webpack webpack-cli webpack-dev-server html-webpack-plugin
-```
-
-```sh
 npm install --save-dev style-loader css-loader less-loader less ts-loader
+npm install --save-dev node-sass-chokidar
+npm install --save-dev npm-run-all
+npm install --save-dev react-scripts
 ```
 
 ## Available Scripts
@@ -69,6 +66,8 @@ It correctly bundles React in production mode and optimizes the build for the be
 #### npm list --depth=0
 #### npm view/info <package> version
 Lists installed packages and versions
+#### sudo npm i -g npm 
+Update npm version to latest
 
 ## Git commit message format
 [Title] This is a Git title
@@ -87,3 +86,8 @@ Lists installed packages and versions
 - https://www.codecademy.com/articles/react-setup-i
 - https://www.typescriptlang.org/docs/handbook/react-&-webpack.html
 - https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter
+- https://blog.logrocket.com/how-why-a-guide-to-using-typescript-with-react-fffb76c61614
+- https://www.youtube.com/watch?v=2QaI5ajg4Hw
+- https://blog.lucify.com/building-interactive-visualizations-with-react-d3-and-typescript-206c7172b0d2
+- https://spin.atomicobject.com/2017/07/20/d3-react-typescript/
+- https://medium.com/@Connorelsea/using-sass-with-create-react-app-7125d6913760
