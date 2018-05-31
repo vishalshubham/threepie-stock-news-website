@@ -1,0 +1,16 @@
+@import 'src/client/styles/variables.scss';
+
+.axis-x {
+  &__background {
+    fill: $color-secondary;
+  }
+
+  &__indicator {
+    text {
+      fill: $color-grayscale-p0;
+      font-size: 12px;
+      text-anchor: middle;
+    }
+  }
+}
+

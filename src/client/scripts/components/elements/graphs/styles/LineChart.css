@@ -1,0 +1,34 @@
+.line-chart {
+  position: relative;
+  height: 500px;
+  width: 800px; }
+  .line-chart svg {
+    height: 100%;
+    width: 100%; }
+  .line-chart__line {
+    stroke: #129FA9;
+    stroke-width: 2px;
+    fill: none; }
+  .line-chart__area {
+    opacity: .3;
+    fill: #129FA9; }
+  .line-chart__dot {
+    stroke: #129FA9;
+    stroke-width: 1px;
+    opacity: 1;
+    fill: #FFFFFF;
+    cursor: pointer; }
+    .line-chart__dot--above {
+      stroke: #129FA9; }
+    .line-chart__dot--between {
+      stroke: #808080; }
+    .line-chart__dot--below {
+      stroke: #DB3766; }
+    .line-chart__dot:hover {
+      stroke-width: 1rem;
+      stroke-opacity: .65; }
+  .line-chart__tooltip {
+    position: absolute;
+    width: 8rem;
+    margin-top: -7rem;
+    margin-left: -4rem; }

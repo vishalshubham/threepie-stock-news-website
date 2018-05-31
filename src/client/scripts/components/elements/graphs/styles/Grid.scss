@@ -1,0 +1,14 @@
+@import 'src/client/styles/variables.scss';
+
+.chart-grid {
+  &__line {
+    stroke-width: 1px;
+    stroke: $color-grayscale-p50;
+  }
+
+  &__indicator {
+    font-size: 1.5rem;
+    fill: $color-grayscale-base;
+  }
+}
+

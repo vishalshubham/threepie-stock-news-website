@@ -1,0 +1,56 @@
+@import 'src/client/styles/variables.scss';
+
+.line-chart {
+  position: relative;
+  height: 500px;
+  width: 800px;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+
+  &__line {
+    stroke: $color-primary;
+    stroke-width: 2px;
+    fill: none;
+  }
+
+  &__area {
+    opacity: .3;
+    fill: $color-primary;
+  }
+
+  &__dot {
+    stroke: $color-primary;
+    stroke-width: 1px;
+    opacity: 1;
+    fill: $color-grayscale-p0;
+    cursor: pointer;
+
+    &--above {
+      stroke: $color-favorable;
+    }
+
+    &--between {
+      stroke: $color-neutral;
+    }
+
+    &--below {
+      stroke: $color-unfavorable;
+    }
+
+    &:hover {
+      stroke-width: 1rem;
+      stroke-opacity: .65;
+    }
+  }
+
+  &__tooltip {
+    position: absolute;
+    width: 8rem;
+    margin-top: -7rem;
+    margin-left: -4rem;
+  }
+}
+
