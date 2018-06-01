@@ -1,0 +1,47 @@
+$directions: (
+  top: 'top',
+  bottom: 'bottom',
+  left: 'left',
+  right: 'right'
+);
+
+@mixin arrow($direction, $size, $color, $position: absolute) {
+  // @warn is not allowed by the lint
+  // @if map-has-key($directions, $direction) == false {
+  //   @warn 'Direction not supported: `#{$direction}`.';
+  // }
+
+  position: $position;
+
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border: solid transparent;
+  border-width: $size;
+  content: ' ';
+
+  @if map-get($directions, $direction) == 'top' or map-get($directions, $direction) == 'bottom' {
+    left: 50%;
+  }
+  @else if map-get($directions, $direction) == 'left' or map-get($directions, $direction) == 'right' {
+    top: 50%;
+  }
+
+  @if map-get($directions, $direction) == 'top' {
+    bottom: 100%;
+    border-bottom-color: $color;
+  }
+  @else if map-get($directions, $direction) == 'bottom' {
+    top: 100%;
+    border-top-color: $color;
+  }
+  @else if map-get($directions, $direction) == 'left' {
+    right: 100%;
+    border-right-color: $color;
+  }
+  @else if map-get($directions, $direction) == 'right' {
+    left: 100%;
+    border-left-color: $color;
+  }
+};
+

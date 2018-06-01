@@ -1,0 +1,83 @@
+@import 'src/build/client/styles/variables.css';
+@import 'src/build/client/styles/mixins/arrow.css';
+
+@mixin graph-tooltip($color) {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-width: 8rem;
+  white-space: nowrap;
+
+  .graph-tooltip__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-width: 8rem;
+    padding: .5rem;
+    background-color: $color-grayscale-p0;
+    border: .2rem solid $color;
+    border-bottom: .5rem solid $color;
+  }
+
+  .graph-tooltip__title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: $color-grayscale-p100;
+  }
+
+  .graph-tooltip__label {
+    margin: 0;
+    font-size: 1.3rem;
+    color: $color-grayscale-p90;
+  }
+
+  &::after {
+    @include arrow(bottom, 10px, $color, static);
+  }
+}
+
+.histogram__percent {
+  .histogram__tooltip {
+    font-family: $font-primary;
+
+    .graph-tooltip__content {
+      padding: 1rem;
+    }
+
+    .graph-tooltip__title {
+      font-size: 2rem;
+    }
+
+    .graph-tooltip__label {
+      font-size: 2.1rem;
+    }
+  }
+}
+
+.graph-tooltip--default {
+  @include graph-tooltip($color-most-favorable);
+}
+
+.graph-tooltip--most-unfavorable {
+  @include graph-tooltip($color-most-unfavorable);
+}
+
+.graph-tooltip--unfavorable {
+  @include graph-tooltip($color-unfavorable);
+}
+
+.graph-tooltip--neutral {
+  @include graph-tooltip($color-neutral);
+}
+
+.graph-tooltip--favorable {
+  @include graph-tooltip($color-favorable);
+}
+
+.graph-tooltip--most-favorable {
+  @include graph-tooltip($color-most-favorable);
+}
+
+.unscored-graph-tooltip--default {
+  @include graph-tooltip($color-black);
+}

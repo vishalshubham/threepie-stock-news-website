@@ -2,7 +2,8 @@ import * as React from 'react';
 import {line, scaleLinear} from 'd3';
 import { KVMap } from 'src/client/scripts/data_models/general';
 import { map, get, minBy, maxBy } from 'lodash';
-import './styles/Grid.css';
+
+import 'src/build/client/scripts/components/elements/graphs/styles/Grid.css';
 
 export interface GridProps {
   ticks: Array<KVMap<number | string>>;

@@ -4,7 +4,7 @@ import { map, get, maxBy, minBy } from 'lodash';
 import Grid from './Grid';
 import AxisX from './AxisX';
 
-import './styles/LineChart.css';
+import 'src/build/client/scripts/components/elements/graphs/styles/LineChart.css';
 import classNames from 'src/client/scripts/utils/classNames';
 import { ThresholdData } from 'src/client/scripts/data_models/general';
 

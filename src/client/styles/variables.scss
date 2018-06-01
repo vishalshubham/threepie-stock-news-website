@@ -1,8 +1,25 @@
-$color-secondary: #303042;
-$color-grayscale-p0: #FFFFFF !default;
 $color-primary: #129FA9 !default;
-$color-favorable: #129FA9;
-$color-neutral: #808080;
-$color-unfavorable: #DB3766;
+$color-secondary: #303042;
 $color-grayscale-base: #2B2B2B !default;
-$color-grayscale-p50: #CCCCCC;
+$color-black: #000;
+
+$color-most-unfavorable: #B22B58;
+$color-unfavorable: #DB3766;
+$color-neutral: #808080;
+$color-favorable: #129FA9;
+$color-most-favorable: #00737C;
+
+$font-primary: 'Sans-Serif';
+
+$color-grayscale-p0: #FFFFFF !default;
+$color-grayscale-p10: #F5F5F5 !default;
+$color-grayscale-p20: #EDEDED !default;
+$color-grayscale-p30: #E8E8E8 !default;
+$color-grayscale-p35: rgba(232, 232, 232, 0.75) !default;
+$color-grayscale-p40: #DDDDDD !default;
+$color-grayscale-p50: #CCCCCC !default;
+$color-grayscale-p60: #BABABA !default;
+$color-grayscale-p70: #999999 !default;
+$color-grayscale-p80: #808080 !default;
+$color-grayscale-p90: #666666 !default;
+$color-grayscale-p100: #4D4D4D !default;

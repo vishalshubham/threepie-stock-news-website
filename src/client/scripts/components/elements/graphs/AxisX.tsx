@@ -2,7 +2,7 @@ import * as React from 'react';
 import {scaleLinear} from 'd3';
 import { map, get, minBy, maxBy } from 'lodash';
 
-import './styles/AxisX.css';
+import 'src/build/client/scripts/components/elements/graphs/styles/AxisX.css';
 import { KVMap } from 'src/client/scripts/data_models/general';
 
 interface AxisXProps {

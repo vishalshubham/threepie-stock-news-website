@@ -2,33 +2,42 @@ import * as React from 'react';
 import './AppContainer.css';
 import logo from 'src/client/images/logo.svg';
 import { LineChart, LineChartProps } from '../components/elements/graphs/LineChart';
+import { Tooltip } from '../components/elements/tooltip/Tooltip';
 
 const lineChart = {
   data: [{
     data: [{
       x: 2,
-      y: 1606.9
+      y: 1606.9000,
+      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
     },{
       x: 3,
-      y: 1618.1000
+      y: 1618.1000,
+      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
     },{
       x: 4,
-      y: 1615.0600
+      y: 1615.0600,
+      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
     },{
       x: 5,
-      y: 1622.6600
+      y: 1622.6600,
+      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
     },{
       x: 6,
-      y: 1624.8000
+      y: 1624.8000,
+      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
     },{
       x: 7,
-      y: 1621.6700
+      y: 1621.6700,
+      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
     },{
       x: 8,
-      y: 1622.0050
+      y: 1622.0050,
+      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
     },{
       x: 9,
-      y: 1623.4900
+      y: 1623.4900,
+      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
     }]
   }],
   axisX: [{
