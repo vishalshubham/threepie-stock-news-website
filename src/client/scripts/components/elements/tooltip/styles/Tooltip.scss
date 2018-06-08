@@ -1,5 +1,5 @@
-@import 'src/build/client/styles/variables.css';
-@import 'src/build/client/styles/mixins/arrow.css';
+@import 'src/client/styles/variables.scss';
+@import 'src/client/styles/mixins/arrow.scss';
 
 @mixin graph-tooltip($color) {
   display: flex;
@@ -21,14 +21,19 @@
 
   .graph-tooltip__title {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: .9rem;
     color: $color-grayscale-p100;
   }
 
   .graph-tooltip__label {
     margin: 0;
-    font-size: 1.3rem;
+    font-size: .8rem;
     color: $color-grayscale-p90;
+  }
+
+  .graph-tooltip__image {
+    height: 50px;
+    width: 80px;
   }
 
   &::after {

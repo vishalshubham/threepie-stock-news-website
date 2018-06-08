@@ -14,6 +14,12 @@ export const Tooltip: React.StatelessComponent<TooltipProps> = (props) => {
         <h6 className="graph-tooltip__title">
           {props.title}
         </h6>
+        <img className="graph-tooltip__image"
+          src="https://content.prnewswire.com/images/prn_facebook_sharing_logo.jpg"
+        />
+        <a
+          href="http://www.threepie.com"
+          target="_blank"> link </a>
         <p className="graph-tooltip__label">
           {props.label}
         </p>
@@ -23,4 +29,3 @@ export const Tooltip: React.StatelessComponent<TooltipProps> = (props) => {
 };
 
 export default Tooltip;
-

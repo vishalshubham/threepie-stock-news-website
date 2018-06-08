@@ -1,4 +1,4 @@
-@import 'src/build/client/styles/variables.css';
+@import 'src/client/styles/variables.scss';
 
 .chart-grid {
   &__line {
@@ -7,7 +7,7 @@
   }
 
   &__indicator {
-    font-size: 1.5rem;
+    font-size: 1rem;
     fill: $color-grayscale-base;
   }
 }

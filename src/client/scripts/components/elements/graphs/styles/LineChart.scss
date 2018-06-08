@@ -1,6 +1,7 @@
-@import 'src/build/client/styles/variables.css';
+@import 'src/client/styles/variables.scss';
 
 .line-chart {
+  display: inline-block;
   position: relative;
   height: 500px;
   width: 800px;

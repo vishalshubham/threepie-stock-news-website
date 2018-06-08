@@ -84,7 +84,8 @@ export class LineChart extends React.Component<LineChartProps, any> {
       .y(function(d: any) {
         return scale.y(d.y);
       })
-      .curve(curveCatmullRom.alpha(0.5));
+      // Adds curve in the graph
+      // .curve(curveCatmullRom.alpha(0.5));
     const areaa = area()
       .x(function(d: any) {
         return scale.x(d.x);
@@ -93,7 +94,8 @@ export class LineChart extends React.Component<LineChartProps, any> {
       .y1(function(d: any) {
         return scale.y(d.y);
       })
-      .curve(curveCatmullRom.alpha(0.5));
+      // Adds curve in the graph
+      // .curve(curveCatmullRom.alpha(0.5));
     return (
       <div className="line-chart">
         <svg viewBox={`0 0 ${this.state.width} ${this.state.height}`} ref={this.refHandler} >
@@ -151,8 +153,7 @@ export class LineChart extends React.Component<LineChartProps, any> {
             r="8"
             cx={scale.x(point.x)}
             cy={scale.y(point.y)}
-            onMouseEnter={this.showTooltip.bind(this, point.tooltip)}
-            onMouseLeave={this.hideTooltip}
+            onClick={this.showTooltip.bind(this, point.tooltip)}
           />
         )}
       </g>)
