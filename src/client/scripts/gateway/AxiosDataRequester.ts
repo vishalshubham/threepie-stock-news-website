@@ -13,11 +13,8 @@ const endpoints = {
 	prod: 'http://ec2-18-188-188-147.us-east-2.compute.amazonaws.com'
 };
 
-// Note: you can either calling CREWS beta or your locally deployed CREWS
-if (process.env.NODE_ENV === 'development') {
-	baseURL = endpoints.beta;
-	withCredentials = true;
-}
+baseURL = endpoints.beta;
+withCredentials = true;
 
 export default class AxiosDataRequester {
 	public static async get(url: string, params: KVMap<any>, timeout?: number, headers?: KVMap<any>) {
