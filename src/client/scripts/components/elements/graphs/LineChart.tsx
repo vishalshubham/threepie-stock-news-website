@@ -35,6 +35,7 @@ interface LineChartState {
 
 export class LineChart extends React.Component<LineChartProps, any> {
   private svg = null;
+  private circleRadius = 8;
 
   constructor(props: LineChartProps) {
     super(props);
@@ -150,10 +151,11 @@ export class LineChart extends React.Component<LineChartProps, any> {
                             point.y > get(threshold, ['below']),
                           'line-chart__dot--below':
                             point.y < get(threshold, ['below']) })}
-            r="8"
+            r={this.circleRadius}
             cx={scale.x(point.x)}
             cy={scale.y(point.y)}
-            onClick={this.showTooltip.bind(this, point.tooltip)}
+            onMouseOver={this.showTooltip.bind(this, point.tooltip)}
+            onMouseOut={this.hideTooltip}
           />
         )}
       </g>)
@@ -174,7 +176,7 @@ export class LineChart extends React.Component<LineChartProps, any> {
         el,
         style: {
           left: (e.target.getAttribute('cx') / width * 100) + '%',
-          top: (e.target.getAttribute('cy') / height * 100) + '%',
+          top: ((e.target.getAttribute('cy') - this.circleRadius * 5) / height * 100) + '%',
         }
       }
     });

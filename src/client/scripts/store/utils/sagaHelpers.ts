@@ -2,6 +2,8 @@ import { get } from 'lodash';
 import { call, put, take, select, fork, cancel } from 'redux-saga/effects';
 import { AppState } from 'src/client/scripts/store/state';
 import { Action } from 'src/client/scripts/store/actions/action';
+import { matchPath } from 'react-router';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 interface SagaActions {
   REQUEST: string;
@@ -44,3 +46,25 @@ export function makeSagaTask(actions: SagaActions, func: (payload: any) => any) 
     }
   };
 }
+
+
+export function forkOnMatch(pathToMarch: string, saga: () => IterableIterator<any>, exact: boolean= true) {
+  return function *() {
+     let pathname = yield select((state: AppState) => get(state, 'router.location.pathname', ''));
+     while (true) {
+       if (matchPath(pathname, { path: pathToMarch, exact })) {
+         const spawned = yield fork(saga);
+         while (true) {
+           const action = yield take(LOCATION_CHANGE);
+           if (!matchPath(action.payload.pathname, { path: pathToMarch, exact })) {
+             yield cancel(spawned);
+             break;
+           }
+         }
+       }
+       const changeLocAction = yield take(LOCATION_CHANGE);
+       pathname = changeLocAction.payload.pathname;
+     }
+   };
+ }
+ 

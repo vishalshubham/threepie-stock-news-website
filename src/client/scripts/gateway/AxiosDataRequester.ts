@@ -14,7 +14,7 @@ const endpoints = {
 };
 
 baseURL = endpoints.beta;
-withCredentials = true;
+withCredentials = false;
 
 export default class AxiosDataRequester {
 	public static async get(url: string, params: KVMap<any>, timeout?: number, headers?: KVMap<any>) {

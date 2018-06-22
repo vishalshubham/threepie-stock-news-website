@@ -4,92 +4,124 @@ import logo from 'src/client/images/logo.png';
 import { LineChart, LineChartProps } from '../components/elements/graphs/LineChart';
 import { Tooltip } from '../components/elements/tooltip/Tooltip';
 import NavBar from '../components/elements/navigation/NavBar';
+import { StockInfoState, StockNews, StockData } from 'src/client/scripts/store/states/stock';
+import { Dispatch } from 'redux';
+import { appStart } from 'src/client/scripts/store/actions';
+import { connect } from 'react-redux';
+import { AppState } from '../store/state';
+import { get, isEmpty, floor, ceil } from 'lodash';
+import * as moment from 'moment';
 
-const lineChart = {
-  data: [{
-    data: [{
-      x: 2,
-      y: 1606.9000,
-      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
-    },{
-      x: 3,
-      y: 1618.1000,
-      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
-    },{
-      x: 4,
-      y: 1615.0600,
-      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
-    },{
-      x: 5,
-      y: 1622.6600,
-      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
-    },{
-      x: 6,
-      y: 1624.8000,
-      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
-    },{
-      x: 7,
-      y: 1621.6700,
-      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
-    },{
-      x: 8,
-      y: 1622.0050,
-      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
-    },{
-      x: 9,
-      y: 1623.4900,
-      tooltip: <Tooltip title="Vishal Chaudhary" label="Hamsini" />
-    }]
-  }],
-  axisX: [{
-    label: '9.00 am',
-    value: 2
-  },{
-    label: '10.00 am',
-    value: 3
-  },{
-    label: '11.00 am',
-    value: 4
-  },{
-    label: '12.00 am',
-    value: 5
-  },{
-    label: '01.00 pm',
-    value: 6
-  },{
-    label: '02.00 pm',
-    value: 7
-  },{
-    label: '03.00 pm',
-    value: 8
-  },{
-    label: '04.00 pm',
-    value: 9
-  }],
-  axisY: [{
-    label: '$1600.00',
-    value: 1600
-  },{
-    label: '$1610.00',
-    value: 1610
-  },{
-    label: '$1620.00',
-    value: 1620
-  },{
-    label: '$1630.00',
-    value: 1630
-  }]
-};
+interface AppContainerProps {
+  data?: StockData;
+  news?: StockNews;
+  dispatch?: Dispatch<any>;
+}
 
-class AppContainer extends React.Component {
-  public render() {
-    return (
-      <div className="app-container">
-        <NavBar />
-        <LineChart {...lineChart} showAxisX={true} showGrid={true}/>
-      </div>
-    );
+const mapStateToProps = (state: AppState) => {
+  return {
+    data: get(state.stockInfoState, ['result', 'data']),
+    news: get(state.stockInfoState, ['result', 'news'])
   }
 }
 
-export default AppContainer;
+@connect(mapStateToProps)
+export default class AppContainer extends React.Component<AppContainerProps, any> {
+
+  public componentDidMount() {
+    this.props.dispatch(appStart());
+  }
+
+  public render(): JSX.Element {
+
+    const data = this.getData();
+    const stockData = [{ data }];
+
+    const axisX = this.getAxisX();
+    const axisY = this.getAxisY();
+
+    if (!isEmpty(data)) {
+      return (
+        (<div className="app-container">
+          <NavBar />
+          <LineChart
+            data = {stockData}
+            axisX = {axisX}
+            axisY = {axisY}
+            showAxisX={true}
+            showGrid={true}
+          />
+        </div>)
+      );
+    } else {
+      return null;
+    }
+  }
+
+  public getData() {
+    let i = 1;
+    return !isEmpty(this.props.data) && !isEmpty(this.props.data.values) ?
+      this.props.data.values.map(function(value) {
+        const displayValue = value.open;
+        return {
+            x: ++i,
+            y: displayValue,
+            tooltip: <Tooltip title={value.open.toString()} label={value.time.toString()} />
+        };
+      }) : null;
+  }
+
+  public getAxisX() {
+    let i = 1;
+    return !isEmpty(this.props.data) && !isEmpty(this.props.data.values) ?
+    this.props.data.values.map(function(value) {
+      // ISO_8601 standard yyyy-MM-ddTHH:mm:ssZ'
+      const date = moment(value.time.toString(), moment.ISO_8601).utc().format('HH:mm');
+      return {
+          label: date,
+          value: ++i
+      };
+    }) : null;
+  }
+
+  public getAxisY() {
+    if (!isEmpty(this.props.data) && !isEmpty(this.props.data.values)) {
+      let i = 0;
+      let currentHigh = -1;
+      let currentLow = -1;
+      for(i=0; i<this.props.data.values.length; i++) {
+        const displayValue = this.props.data.values[i].open;
+        if(currentHigh === -1) {
+          currentHigh = displayValue;
+          currentLow = displayValue;
+        } else {
+          currentHigh = currentHigh < displayValue ? displayValue : currentHigh;
+          currentLow = currentLow > displayValue ? displayValue : currentLow;
+        }
+      }
+
+      // TODO: Better calculation of upper and lower limits for the chart
+      currentHigh = floor(currentHigh + (currentHigh * 0.01));
+      currentLow = ceil(currentLow - (currentLow * 0.01));
+      const center = floor((currentHigh + currentLow) / 2);
+      return [{
+        label: currentLow.toString(),
+        value: currentLow
+      },{
+        label: center.toString(),
+        value: center
+      },{
+        label: currentHigh.toString(),
+        value: currentHigh
+      }];
+    } else {
+      return [{
+        label: '10',
+        value: 10
+      },{
+        label: '0',
+        value: 0
+      }];
+    }
+  }
+}
