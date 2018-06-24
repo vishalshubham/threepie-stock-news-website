@@ -1,18 +1,14 @@
 import * as React from 'react';
-import './AppContainer.css';
-import logo from 'src/client/images/logo.png';
-import { LineChart, LineChartProps } from '../components/elements/graphs/LineChart';
-import { Tooltip } from '../components/elements/tooltip/Tooltip';
-import NavBar from '../components/elements/navigation/NavBar';
-import { StockInfoState, StockNews, StockData } from 'src/client/scripts/store/states/stock';
+import { LineChart } from '../../components/elements/graphs/LineChart';
+import { Tooltip } from '../../components/elements/tooltip/Tooltip';
+import { StockNews, StockData } from 'src/client/scripts/store/states/stock';
 import { Dispatch } from 'redux';
-import { appStart } from 'src/client/scripts/store/actions';
-import { connect } from 'react-redux';
-import { AppState } from '../store/state';
 import { get, isEmpty, floor, ceil } from 'lodash';
 import * as moment from 'moment';
+import { connect } from 'react-redux';
+import { AppState } from 'src/client/scripts/store/state';
 
-interface AppContainerProps {
+interface ChartContainerProps {
   data?: StockData;
   news?: StockNews;
   dispatch?: Dispatch<any>;
@@ -26,11 +22,7 @@ const mapStateToProps = (state: AppState) => {
 }
 
 @connect(mapStateToProps)
-export default class AppContainer extends React.Component<AppContainerProps, any> {
-
-  public componentDidMount() {
-    this.props.dispatch(appStart());
-  }
+export default class ChartContainer extends React.Component<ChartContainerProps, any> {
 
   public render(): JSX.Element {
 
@@ -39,23 +31,24 @@ export default class AppContainer extends React.Component<AppContainerProps, any
 
     const axisX = this.getAxisX();
     const axisY = this.getAxisY();
+    const showChart = !isEmpty(data);
 
-    if (!isEmpty(data)) {
-      return (
-        (<div className="app-container">
-          <NavBar />
-          <LineChart
-            data = {stockData}
-            axisX = {axisX}
-            axisY = {axisY}
-            showAxisX={true}
-            showGrid={true}
-          />
-        </div>)
-      );
-    } else {
+    // Null check for line chart
+    if(isEmpty(data)) {
       return null;
     }
+
+    return (
+      <div className="chart-container">
+        <LineChart
+          data = {stockData}
+          axisX = {axisX}
+          axisY = {axisY}
+          showAxisX={true}
+          showGrid={true}
+        />
+      </div>
+    );
   }
 
   public getData() {

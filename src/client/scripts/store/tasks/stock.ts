@@ -6,7 +6,7 @@ import * as Moment from 'moment';
 
 const defaultParams = {
   symbol: 'amzn',
-  fromDate: Moment.utc().add(-1, 'days').format('YYYY-MM-DD'),
+  fromDate: Moment.utc().add(-2, 'days').format('YYYY-MM-DD'),
   toDate: Moment.utc().format('YYYY-MM-DD')
 }
 export const fetchStockDataTask = makeSagaTask(FETCH_STOCK_DATA_ACTION,

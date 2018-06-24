@@ -1,4 +1,4 @@
-import { get, toNumber } from 'lodash';
+import { get, toNumber, isEmpty } from 'lodash';
 import { createReducer } from 'src/client/scripts/store/utils/reducerHelpers';
 import { StockInfoState, StockInfoResult, StockData, StockNews, StockArticle, StockValue } from '../states/stock';
 import { Action, FETCH_STOCK_DATA_ACTION } from 'src/client/scripts/store/actions';
@@ -44,16 +44,20 @@ export const valueTransformer = (item): StockValue => {
 }
 
 export const dataTransformer = (item): StockData => {
-  return {
-    information: get(item, 'information'),
-    symbol: get(item, 'symbol'),
-    lastRefreshed: get(item, 'lastRefreshed'),
-    interval: get(item, 'interval'),
-    outputSize: get(item, 'outputSize'),
-	  timeZone: get(item, 'timeZone'),
-    values: get(item, 'details')
-      .map(valueTransformer)
-  };
+  if (!isEmpty(item)) {
+    return {
+      information: get(item, 'information'),
+      symbol: get(item, 'symbol'),
+      lastRefreshed: get(item, 'lastRefreshed'),
+      interval: get(item, 'interval'),
+      outputSize: get(item, 'outputSize'),
+      timeZone: get(item, 'timeZone'),
+      values: get(item, 'details')
+        .map(valueTransformer)
+    };
+  } else {
+    return null;
+  }
 }
 
 export const articleTransformer = (item): StockArticle => {
@@ -70,10 +74,14 @@ export const articleTransformer = (item): StockArticle => {
 
 export const newsTransformer = (item): StockNews => {
   // TODO: Sort these articles as per time stamp
-  return {
-    articles: get(item, 'articles')
-      .map(articleTransformer)
-  };
+  if (!isEmpty(item)) {
+    return {
+      articles: get(item, 'articles')
+        .map(articleTransformer)
+    };
+  } else {
+    return null;
+  }
 }
 
 export const transformer = (item): StockInfoResult => {

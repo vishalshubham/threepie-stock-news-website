@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {line, area, curveCatmullRom, scaleLinear} from 'd3';
-import { map, get, maxBy, minBy } from 'lodash';
+import { map, get, maxBy, minBy, isEmpty } from 'lodash';
 import Grid from './Grid';
 import AxisX from './AxisX';
 
@@ -97,6 +97,7 @@ export class LineChart extends React.Component<LineChartProps, any> {
       })
       // Adds curve in the graph
       // .curve(curveCatmullRom.alpha(0.5));
+
     return (
       <div className="line-chart">
         <svg viewBox={`0 0 ${this.state.width} ${this.state.height}`} ref={this.refHandler} >

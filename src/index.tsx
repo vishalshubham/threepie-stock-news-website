@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { configureStore } from 'src/client/scripts/store/store';
 import history from './client/scripts/store/history';
 import './index.css';
-import AppContainer from './client/scripts/containers/AppContainer';
+import AppContainer from './client/scripts/containers/app/AppContainer';
 
 function renderApp() {
   ReactDOM.render(
