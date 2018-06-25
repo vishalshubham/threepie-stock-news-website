@@ -1,0 +1,27 @@
+.custom-date-range-picker-option {
+
+	font-family: inherit;
+
+		p {
+			margin: 0;
+		}
+
+		&-title {
+			font-size: 14px;
+			font-weight: bolder; 
+			margin: 0;
+		}
+
+		&-sub-title {
+			font-size: 11px;
+			margin: 0;
+		}
+
+		&-divider {
+			margin: 5px 0;
+		}
+
+		&-container {
+			margin: -6px -6px;
+		}
+}

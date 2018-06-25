@@ -2,8 +2,8 @@ import * as React from 'react';
 import 'src/build/client/scripts/components/elements/navigation/styles/HeaderBar.css';
 import logo from 'src/client/images/logo.png';
 
-class HeaderBar extends React.Component {
-    public render() {
+class HeaderBar extends React.Component<any, any> {
+    public render(): JSX.Element {
       return (
         <div className="header-bar-container">
           <div className="header-bar-header-container">

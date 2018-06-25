@@ -59,7 +59,7 @@ export default class ChartContainer extends React.Component<ChartContainerProps,
         return {
             x: ++i,
             y: displayValue,
-            tooltip: <Tooltip title={value.open.toString()} label={value.time.toString()} />
+            tooltip: <Tooltip title={value.time.toString()} label={value.open.toString()} />
         };
       }) : null;
   }

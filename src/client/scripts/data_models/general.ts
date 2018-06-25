@@ -7,3 +7,5 @@ export interface ThresholdData {
 	above: number;
 	below: number;
 }
+
+export type VoidCallback<T extends KVMap<any> | null> = (...T) => void;

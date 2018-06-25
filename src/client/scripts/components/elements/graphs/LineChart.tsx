@@ -155,8 +155,7 @@ export class LineChart extends React.Component<LineChartProps, any> {
             r={this.circleRadius}
             cx={scale.x(point.x)}
             cy={scale.y(point.y)}
-            onMouseOver={this.showTooltip.bind(this, point.tooltip)}
-            onMouseOut={this.hideTooltip}
+            onClick={this.showTooltip.bind(this, point.tooltip)}
           />
         )}
       </g>)

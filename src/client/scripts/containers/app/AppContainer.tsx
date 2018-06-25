@@ -38,7 +38,9 @@ export default class AppContainer extends React.Component<AppContainerProps, any
     return (
       <div className="app-container">
         <HeaderBar />
-        <MainContainer />
+        <MainContainer
+          dispatch={this.props.dispatch}
+        />
       </div>
     );
   }

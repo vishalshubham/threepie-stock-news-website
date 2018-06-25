@@ -7,7 +7,12 @@ import AxiosDataRequester, { baseURL } from './AxiosDataRequester';
 export default class APIGateway {
 
   public static fetchStockData(params, timeout?): Promise<any> {
-    return AxiosDataRequester.get(`${APIGateway.USER_API}`, params, timeout);
+    const finalParams = {
+      symbol : params.payload.symbol,
+      fromDate : params.payload.fromDate,
+      toDate : params.payload.toDate
+    };
+    return AxiosDataRequester.get(`${APIGateway.USER_API}`, finalParams, timeout);
   }
 
   private static readonly BASE_API = '/api/v1';
