@@ -17,6 +17,6 @@ export default class APIGateway {
 
   private static readonly BASE_API = '/api/v1';
   private static readonly USER_API = `${APIGateway.BASE_API}` +
-    '/stockAndNews/getAll';
+    '/ticker/stock-and-news';
 }
 
