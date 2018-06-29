@@ -2,13 +2,8 @@ import * as React from 'react';
 import { isEmpty } from 'lodash';
 import { Select } from 'antd';
 import { Dispatch } from 'redux';
-import { VoidCallback } from 'src/client/scripts/data_models/general';
+import { VoidCallback, StockTicker } from 'src/client/scripts/data_models/general';
 const Option = Select.Option;
-
-interface StockTicker {
-  symbol: string;
-  name: string;
-}
 
 interface CustomListProps {
   data : StockTicker[];

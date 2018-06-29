@@ -12,11 +12,17 @@ export default class APIGateway {
       fromDate : params.payload.fromDate,
       toDate : params.payload.toDate
     };
-    return AxiosDataRequester.get(`${APIGateway.USER_API}`, finalParams, timeout);
+    return AxiosDataRequester.get(`${APIGateway.STOCKS_API}`, finalParams, timeout);
+  }
+
+  public static fetchValidStocks(params, timeout?): Promise<any> {
+    return AxiosDataRequester.get(`${APIGateway.VALID_STOCKS_API}`, params, timeout);
   }
 
   private static readonly BASE_API = '/api/v1';
-  private static readonly USER_API = `${APIGateway.BASE_API}` +
+  private static readonly STOCKS_API = `${APIGateway.BASE_API}` +
     '/ticker/stock-and-news';
+  private static readonly VALID_STOCKS_API = `${APIGateway.STOCKS_API}` +
+    '/valid-stocks';
 }
 

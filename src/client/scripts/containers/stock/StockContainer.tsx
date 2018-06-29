@@ -6,40 +6,39 @@ import * as Moment from 'moment';
 import { updateFilters } from 'src/client/scripts/store/actions';
 import CustomDateRangePicker from 'src/client/scripts/components/elements/picker/CustomDateRangePicker';
 import { Row, Col } from 'antd';
+import { connect } from 'react-redux';
 import 'src/build/client/scripts/containers/stock/styles/StockContainer.css';
-
-const data = [{
-  symbol: 'AAPL',
-  name: 'Apple Inc.'
-},{
-  symbol: 'AMZN',
-  name: 'Amazon.com, Inc.'
-},{
-  symbol: 'MSFT',
-  name: 'Microsoft Corporation'
-},{
-  symbol: 'FB',
-  name: 'Facebook, Inc.'
-},{
-  symbol: 'GOOG',
-  name: 'Alphabet Inc.'
-},{
-  symbol: 'NFLX',
-  name: 'Netflix, Inc.'
-}];
+import { StockTicker, KVMap } from 'src/client/scripts/data_models/general';
+import { get } from 'lodash';
+import { AppState } from 'src/client/scripts/store/state';
 
 interface StockContainerProps {
   dispatch?: Dispatch<any>;
+  validStocks?: StockTicker[];
 }
 
-class StockContainer extends React.Component<StockContainerProps, any> {
-  public render() {
+const mapStateToProps = (state: AppState) => {
+  return {
+    validStocks: state.usageState.validStocks
+  }
+}
+
+@connect(mapStateToProps)
+export default class StockContainer extends React.Component<StockContainerProps, any> {
+
+  constructor(props) {
+    super(props);
+    this.handleOnStockChange = this.handleOnStockChange.bind(this);
+    this.handleOnDateRangeChange = this.handleOnDateRangeChange.bind(this);
+  }
+
+  public render(): JSX.Element {
     return (
 			<div className="stock-container">
         <Row>
           <Col span={6}>
             <CustomList
-              data={data}
+              data={this.props.validStocks}
               onChange={this.handleOnStockChange}
               dispatch={this.props.dispatch}
     				/>
@@ -51,8 +50,6 @@ class StockContainer extends React.Component<StockContainerProps, any> {
             />
           </Col>
         </Row>
-				
-        
       	<ChartContainer />
 			</div>
     );
@@ -64,7 +61,6 @@ class StockContainer extends React.Component<StockContainerProps, any> {
       fromDate: Moment.utc().local().add(-3, 'days').format('YYYY-MM-DD'),
       toDate: Moment.utc().local().format('YYYY-MM-DD')
     }));
-    console.log(`selected ${value}`);
   }
 
   private handleOnDateRangeChange = (item) => {
@@ -74,14 +70,10 @@ class StockContainer extends React.Component<StockContainerProps, any> {
         (item.target.id === 'past-one-week' ?
           Moment.utc().local().add(-7, 'days').format('YYYY-MM-DD') :
           Moment.utc().local().add(-30, 'days').format('YYYY-MM-DD'));
-
     this.props.dispatch(updateFilters({
-      symbol: 'amzn',
+      symbol: 'AMZN',
       fromDate: from,
       toDate: Moment.utc().local().format('YYYY-MM-DD')
     }));
-    console.log(`selected ${item}`);
   }
 }
-  
-export default StockContainer;

@@ -5,7 +5,7 @@ import { APP_START } from './actions';
 
 export default function* rootSaga(): IterableIterator<any> {
   yield all([
-    spawn(filterSaga),
-    spawn(stockSaga)
+    spawn(stockSaga),
+    spawn(filterSaga)
   ]);
 }

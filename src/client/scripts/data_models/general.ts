@@ -8,4 +8,9 @@ export interface ThresholdData {
 	below: number;
 }
 
+export interface StockTicker {
+  symbol: string;
+  name: string;
+}
+
 export type VoidCallback<T extends KVMap<any> | null> = (...T) => void;
