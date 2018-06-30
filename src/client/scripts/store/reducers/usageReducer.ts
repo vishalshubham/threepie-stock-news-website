@@ -1,22 +1,29 @@
 import { get, toNumber, isEmpty } from 'lodash';
 import { createReducer } from 'src/client/scripts/store/utils/reducerHelpers';
 import { StockInfoState, StockInfoResult, StockData, StockNews, StockArticle, StockValue } from '../states/stock';
-import { Action, UPDATE_FILTERS, FETCH_VALID_STOCKS_ACTION } from 'src/client/scripts/store/actions';
+import { Action,
+          FETCH_VALID_STOCKS_ACTION,
+          UPDATE_FILTERS_STOCK,
+          UPDATE_FILTERS_DATE } from 'src/client/scripts/store/actions';
 import { UsageState } from 'src/client/scripts/store/states/usage';
 
 const INITIAL_STATE: UsageState = {
   activeStock: '',
-  activeTimeRangeId: '',
+  activeDateRangeId: '',
+  fromDate: '',
+  toDate: '',
   validStocks: []
 };
 
 const REDUCERS = {
-  [UPDATE_FILTERS]: (currentState: UsageState, action: Action) => ({
+  [UPDATE_FILTERS_STOCK]: (currentState: UsageState, action: Action) => ({
     ...currentState,
-    activeStock: action.payload.symbol,
-    activeTimeRangeId: action.payload.activeTimeRangeId,
-    activeFromDate: action.payload.activeFromDate,
-	  activeToDate: action.payload.activeToDate
+    activeStock: action.payload.symbol
+  }),
+  [UPDATE_FILTERS_DATE]: (currentState: UsageState, action: Action) => ({
+    ...currentState,
+    fromDate: action.payload.fromDate,
+    toDate: action.payload.toDate
   }),
   [FETCH_VALID_STOCKS_ACTION.SUCCESS]: (currentState: UsageState, action: Action) => ({
     ...currentState,

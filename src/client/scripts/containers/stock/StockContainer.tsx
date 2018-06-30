@@ -3,7 +3,7 @@ import ChartContainer from 'src/client/scripts/containers/chart/ChartContainer';
 import CustomList from 'src/client/scripts/components/elements/list/CustomList';
 import { Dispatch } from 'redux';
 import * as Moment from 'moment';
-import { updateFilters } from 'src/client/scripts/store/actions';
+import { updateFiltersStock, updateFiltersDate } from 'src/client/scripts/store/actions';
 import CustomDateRangePicker from 'src/client/scripts/components/elements/picker/CustomDateRangePicker';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
@@ -56,10 +56,8 @@ export default class StockContainer extends React.Component<StockContainerProps,
   }
 
   private handleOnStockChange = (value) => {
-    this.props.dispatch(updateFilters({
-      symbol: value,
-      fromDate: Moment.utc().local().add(-3, 'days').format('YYYY-MM-DD'),
-      toDate: Moment.utc().local().format('YYYY-MM-DD')
+    this.props.dispatch(updateFiltersStock({
+      symbol: value
     }));
   }
 
@@ -70,8 +68,7 @@ export default class StockContainer extends React.Component<StockContainerProps,
         (item.target.id === 'past-one-week' ?
           Moment.utc().local().add(-7, 'days').format('YYYY-MM-DD') :
           Moment.utc().local().add(-30, 'days').format('YYYY-MM-DD'));
-    this.props.dispatch(updateFilters({
-      symbol: 'AMZN',
+    this.props.dispatch(updateFiltersDate({
       fromDate: from,
       toDate: Moment.utc().local().format('YYYY-MM-DD')
     }));

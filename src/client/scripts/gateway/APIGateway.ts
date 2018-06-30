@@ -8,9 +8,9 @@ export default class APIGateway {
 
   public static fetchStockData(params, timeout?): Promise<any> {
     const finalParams = {
-      symbol : params.payload.symbol,
-      fromDate : params.payload.fromDate,
-      toDate : params.payload.toDate
+      symbol : params.symbol,
+      fromDate : params.fromDate,
+      toDate : params.toDate
     };
     return AxiosDataRequester.get(`${APIGateway.STOCKS_API}`, finalParams, timeout);
   }
