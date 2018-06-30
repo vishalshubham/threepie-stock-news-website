@@ -13,6 +13,7 @@ import { get, isEmpty, floor, ceil } from 'lodash';
 import * as moment from 'moment';
 import NavTabs from '../../components/elements/navigation/NavTabs';
 import MainContainer from 'src/client/scripts/containers/MainContainer';
+import 'src/build/client/scripts/containers/app/styles/AppContainer.css';
 
 interface AppContainerProps {
   data?: StockData;
