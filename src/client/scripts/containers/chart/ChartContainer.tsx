@@ -68,7 +68,7 @@ export default class ChartContainer extends React.Component<ChartContainerProps,
     let i = 1;
     return !isEmpty(this.props.data) && !isEmpty(this.props.data.values) ?
     this.props.data.values.map(function(value) {
-      // ISO_8601 standard yyyy-MM-ddTHH:mm:ssZ'
+      // ISO_8601 standard YYYY-MM-ddTHH:mm:ssZ'
       const date = moment(value.time.toString(), moment.ISO_8601).utc().format('HH:mm');
       return {
           label: date,

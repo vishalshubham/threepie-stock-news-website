@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { Select } from 'antd';
 import { Dispatch } from 'redux';
 import { VoidCallback, StockTicker } from 'src/client/scripts/data_models/general';
+import 'src/build/client/scripts/components/elements/list/styles/CustomList.css';
 const Option = Select.Option;
 
 interface CustomListProps {
@@ -23,8 +24,7 @@ class CustomList extends React.Component<CustomListProps, any> {
       <div className="custom-list">
         <Select
           showSearch={true}
-          style={{ width: 260 }}
-          placeholder="Select a stock"
+          placeholder="Choose a stock"
           onChange={this.props.onChange}
         >
           {

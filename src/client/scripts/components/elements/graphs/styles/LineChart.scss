@@ -55,3 +55,34 @@
   }
 }
 
+.line-chart-tooltip {
+
+	font-family: inherit;
+
+	p {
+		margin: 0;
+	}
+
+	&-title {
+		font-size: 13px;
+		margin: 0;
+  }
+
+	&-sub-title {
+		font-size: 11px;
+		margin: 0;
+  }
+
+  &-text {
+		font-size: 13px;
+		margin: 0;
+	}
+
+	&-divider {
+		margin: 5px 0;
+	}
+
+	&-container {
+		margin: -6px -6px;
+	}
+}

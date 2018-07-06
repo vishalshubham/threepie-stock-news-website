@@ -7,8 +7,6 @@ import { stat } from 'fs';
 export function getFilters(state: AppState) {
   const stock = state.usageState.activeStock || '';
   const dateRangeId = state.usageState.activeDateRangeId || '';
-  const fromDate = state.usageState.fromDate;
-  const toDate = state.usageState.toDate;
 
-  return { stock, dateRangeId, fromDate, toDate };
+  return { stock, dateRangeId };
 }

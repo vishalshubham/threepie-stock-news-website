@@ -1,5 +1,5 @@
 import { takeLatest, call, all } from 'redux-saga/effects';
-import { fetchStockDataTask, fetchValidStocksTask } from 'src/client/scripts/store/tasks/stock';
+import { fetchValidStocksTask } from 'src/client/scripts/store/tasks/stock';
 
 export default function * stockSaga() {
   try {

@@ -9,8 +9,7 @@ export default class APIGateway {
   public static fetchStockData(params, timeout?): Promise<any> {
     const finalParams = {
       symbol : params.symbol,
-      fromDate : params.fromDate,
-      toDate : params.toDate
+      period : params.activeDateRangeId
     };
     return AxiosDataRequester.get(`${APIGateway.STOCKS_API}`, finalParams, timeout);
   }

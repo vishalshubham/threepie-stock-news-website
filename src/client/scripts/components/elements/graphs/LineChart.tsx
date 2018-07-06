@@ -3,10 +3,12 @@ import {line, area, curveCatmullRom, scaleLinear} from 'd3';
 import { map, get, maxBy, minBy, isEmpty } from 'lodash';
 import Grid from './Grid';
 import AxisX from './AxisX';
+import * as moment from 'moment';
 
 import 'src/build/client/scripts/components/elements/graphs/styles/LineChart.css';
 import classNames from 'src/client/scripts/utils/classNames';
 import { ThresholdData } from 'src/client/scripts/data_models/general';
+import { Popover, Divider } from 'antd';
 
 export interface DataPoint {
   x: number;
@@ -35,7 +37,7 @@ interface LineChartState {
 
 export class LineChart extends React.Component<LineChartProps, any> {
   private svg = null;
-  private circleRadius = 8;
+  private circleRadius = 4;
 
   constructor(props: LineChartProps) {
     super(props);
@@ -115,11 +117,6 @@ export class LineChart extends React.Component<LineChartProps, any> {
             chartSize={{ width, height }}
           />}
         </svg>
-        {this.state.tooltip &&
-          <div className="line-chart__tooltip" style={this.state.tooltip.style}>
-            {this.state.tooltip.el}
-          </div>
-        }
       </div >
     );
   }
@@ -136,27 +133,39 @@ export class LineChart extends React.Component<LineChartProps, any> {
       .range(range.y)
   })
 
+  private getContent = (point) => {
+    // ISO_8601 standard YYYY-MM-ddTHH:mm:ssZ'
+    const date = moment(point.tooltip.props.title, moment.ISO_8601).utc().format('MMM DD, YYYY');
+    const time = moment(point.tooltip.props.title, moment.ISO_8601).utc().format('hh:mm a');
+    return (
+    <div className="line-chart-tooltip">
+        <p className="line-chart-tooltip-sub-title">{date + ' at ' + time}</p>
+    </div>);
+  };
+  
+
   private generateDataDots = (data, scale) => {
     const threshold = this.props.threshold;
     return map(data, (d, index) => (
       <g key={index} className="line-chart__dots">
         {map(d.data, (point, i) =>
-          <circle
-            key={i}
-            className={classNames(
-                        'line-chart__dot',
-                        { 'line-chart__dot--above':
-                            point.y > get(threshold, ['above']),
-                          'line-chart__dot--between':
-                            point.y < get(threshold, ['above']) &&
-                            point.y > get(threshold, ['below']),
-                          'line-chart__dot--below':
-                            point.y < get(threshold, ['below']) })}
-            r={this.circleRadius}
-            cx={scale.x(point.x)}
-            cy={scale.y(point.y)}
-            onClick={this.showTooltip.bind(this, point.tooltip)}
-          />
+          <Popover placement="left" title={point.tooltip.props.label} content={this.getContent(point)}>
+            <circle
+              key={i}
+              className={classNames(
+                          'line-chart__dot',
+                          { 'line-chart__dot--above':
+                              point.y > get(threshold, ['above']),
+                            'line-chart__dot--between':
+                              point.y < get(threshold, ['above']) &&
+                              point.y > get(threshold, ['below']),
+                            'line-chart__dot--below':
+                              point.y < get(threshold, ['below']) })}
+              r={this.circleRadius}
+              cx={scale.x(point.x)}
+              cy={scale.y(point.y)}
+            />
+          </Popover>
         )}
       </g>)
     );

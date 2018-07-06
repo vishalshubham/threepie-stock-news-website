@@ -62,15 +62,8 @@ export default class StockContainer extends React.Component<StockContainerProps,
   }
 
   private handleOnDateRangeChange = (item) => {
-    const from = 
-      item.target.id === 'past-one-day' ?
-        Moment.utc().local().format('YYYY-MM-DD') :
-        (item.target.id === 'past-one-week' ?
-          Moment.utc().local().add(-7, 'days').format('YYYY-MM-DD') :
-          Moment.utc().local().add(-30, 'days').format('YYYY-MM-DD'));
     this.props.dispatch(updateFiltersDate({
-      fromDate: from,
-      toDate: Moment.utc().local().format('YYYY-MM-DD')
+      activeDateRangeId: item.target.id
     }));
   }
 }

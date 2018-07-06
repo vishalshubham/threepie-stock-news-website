@@ -10,8 +10,6 @@ import { UsageState } from 'src/client/scripts/store/states/usage';
 const INITIAL_STATE: UsageState = {
   activeStock: '',
   activeDateRangeId: '',
-  fromDate: '',
-  toDate: '',
   validStocks: []
 };
 
@@ -22,8 +20,7 @@ const REDUCERS = {
   }),
   [UPDATE_FILTERS_DATE]: (currentState: UsageState, action: Action) => ({
     ...currentState,
-    fromDate: action.payload.fromDate,
-    toDate: action.payload.toDate
+    activeDateRangeId: action.payload.activeDateRangeId
   }),
   [FETCH_VALID_STOCKS_ACTION.SUCCESS]: (currentState: UsageState, action: Action) => ({
     ...currentState,

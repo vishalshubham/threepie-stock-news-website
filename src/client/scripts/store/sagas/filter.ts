@@ -20,11 +20,10 @@ export default function * filterSaga() {
 
 export function* handleUpdateFilters(action) {
   const filters = yield select((state: AppState) => state.usageState);
-  if (!isEmpty(filters.activeStock) && !isEmpty(filters.fromDate) && !isEmpty(filters.toDate)) {
+  if (!isEmpty(filters.activeStock) && !isEmpty(filters.activeDateRangeId)) {
     yield call(fetchStockDataTask, {
       symbol: filters.activeStock,
-      fromDate: filters.fromDate,
-      toDate: filters.toDate
+      activeDateRangeId: filters.activeDateRangeId
     });
   }
 }

@@ -1,5 +1,4 @@
 .custom-date-range-picker-option {
-
 	font-family: inherit;
 
 		p {
@@ -24,4 +23,10 @@
 		&-container {
 			margin: -6px -6px;
 		}
+}
+
+.custom-date-range-picker {
+	.ant-btn {
+		width: 240px;
+	}
 }

@@ -4,13 +4,8 @@ import { makeSagaTask } from 'src/client/scripts/store/utils/sagaHelpers';
 import { basicCaller } from 'src/client/scripts/store/utils/apiHelpers';
 import * as Moment from 'moment';
 
-const defaultParams = {
-  symbol: 'AMZN',
-  fromDate: Moment.utc().add(-2, 'days').format('YYYY-MM-DD'),
-  toDate: Moment.utc().format('YYYY-MM-DD')
-}
 export const fetchStockDataTask = makeSagaTask(FETCH_STOCK_DATA_ACTION,
-  basicCaller(APIGateway.fetchStockData, defaultParams, [], 30000)
+  basicCaller(APIGateway.fetchStockData, {}, [], 30000)
 );
 
 export const fetchValidStocksTask = makeSagaTask(FETCH_VALID_STOCKS_ACTION,
