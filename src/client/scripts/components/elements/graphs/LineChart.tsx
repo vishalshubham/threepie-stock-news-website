@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {line, area, curveCatmullRom, scaleLinear} from 'd3';
+import {line, area, curveCatmullRom, scaleLinear, event} from 'd3';
 import { map, get, maxBy, minBy, isEmpty } from 'lodash';
 import Grid from './Grid';
 import AxisX from './AxisX';
@@ -9,11 +9,19 @@ import 'src/build/client/scripts/components/elements/graphs/styles/LineChart.css
 import classNames from 'src/client/scripts/utils/classNames';
 import { ThresholdData } from 'src/client/scripts/data_models/general';
 import { Popover, Divider } from 'antd';
+import { StockArticle } from 'src/client/scripts/store/states/stock';
 
+export interface ToolTip {
+  title: string;
+  label: string;
+  url?: string;
+  urlToImage?: string;
+}
 export interface DataPoint {
+  type?: string;
   x: number;
   y: number;
-  tooltip?: JSX.Element;
+  tooltip?: ToolTip;
 }
 
 export interface LineChartData {
@@ -29,6 +37,7 @@ export interface LineChartProps {
   threshold?: ThresholdData;
   showGrid?: boolean;
   showAxisX?: boolean;
+  toggle?: string;
 }
 
 interface LineChartState {
@@ -37,7 +46,7 @@ interface LineChartState {
 
 export class LineChart extends React.Component<LineChartProps, any> {
   private svg = null;
-  private circleRadius = 4;
+  private circleRadius = 3;
 
   constructor(props: LineChartProps) {
     super(props);
@@ -102,7 +111,11 @@ export class LineChart extends React.Component<LineChartProps, any> {
 
     return (
       <div className="line-chart">
-        <svg viewBox={`0 0 ${this.state.width} ${this.state.height}`} ref={this.refHandler} >
+        <svg
+          viewBox={`0 0 ${this.state.width} ${this.state.height}`}
+          ref={this.refHandler}
+          onMouseMove={this.onMouseMove}
+        >
           {showGrid && <Grid ticks={axisY} range={range} />}
           {map(data, (d: any, index) =>
             <g key={index}>
@@ -121,6 +134,10 @@ export class LineChart extends React.Component<LineChartProps, any> {
     );
   }
 
+  private onMouseMove = (eventt) => {
+    const x = eventt;
+  }
+
   private refHandler = (ref) => this.svg = ref;
 
   private generateScale = (data, domain, range) => ({
@@ -135,27 +152,45 @@ export class LineChart extends React.Component<LineChartProps, any> {
 
   private getContent = (point) => {
     // ISO_8601 standard YYYY-MM-ddTHH:mm:ssZ'
-    const date = moment(point.tooltip.props.title, moment.ISO_8601).utc().format('MMM DD, YYYY');
-    const time = moment(point.tooltip.props.title, moment.ISO_8601).utc().format('hh:mm a');
+    const date = moment(point.tooltip.label, moment.ISO_8601).utc().local().format('MMM DD, YYYY');
+    const time = moment(point.tooltip.label, moment.ISO_8601).utc().local().format('hh:mm a');
+    const title = (point.tooltip.title.length > 85) ?
+                    point.tooltip.title.substring(0, 85) + '...' :
+                    point.tooltip.title;
+    if (point.type === 'news') {
+      return (
+        <div className="line-chart-tooltip">
+          <img alt="Article Image" src={point.tooltip.urlToImage} />
+          <div className="line-chart-tooltip--horizontal">
+            <p className="line-chart-tooltip-news-title">{title}</p>
+            <hr/>
+            <p className="line-chart-tooltip-sub-title">{date + ' at ' + time}</p>
+            <a className="line-chart-tooltip-link" href={point.tooltip.url} target="_blank" > More Info > </a>
+          </div>
+        </div>);
+    }
     return (
-    <div className="line-chart-tooltip">
+      <div className="line-chart-tooltip">
+        <p className="line-chart-tooltip-title">{'$ ' + point.tooltip.title}</p>
+        <hr/>
         <p className="line-chart-tooltip-sub-title">{date + ' at ' + time}</p>
-    </div>);
+      </div>);
   };
-  
 
   private generateDataDots = (data, scale) => {
     const threshold = this.props.threshold;
+    const toggle = this.props.toggle;
     return map(data, (d, index) => (
       <g key={index} className="line-chart__dots">
         {map(d.data, (point, i) =>
-          <Popover placement="left" title={point.tooltip.props.label} content={this.getContent(point)}>
+          (toggle === point.type || toggle === 'both')  &&
+          <Popover placement="top" content={this.getContent(point)}>
             <circle
               key={i}
               className={classNames(
                           'line-chart__dot',
-                          { 'line-chart__dot--above':
-                              point.y > get(threshold, ['above']),
+                          { 'line-chart__dot--news':
+                              point.type === 'news',
                             'line-chart__dot--between':
                               point.y < get(threshold, ['above']) &&
                               point.y > get(threshold, ['below']),

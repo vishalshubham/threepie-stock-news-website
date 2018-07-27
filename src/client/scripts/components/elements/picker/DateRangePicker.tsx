@@ -5,10 +5,10 @@ import * as Moment from 'moment';
 import { connect } from 'react-redux';
 import { VoidCallback } from 'src/client/scripts/data_models/general';
 import { Popover, Button, Divider } from 'antd';
-import 'src/build/client/scripts/components/elements/picker/styles/CustomDateRangePicker.css';
+import 'src/build/client/scripts/components/elements/picker/styles/DateRangePicker.css';
 import { AppState } from 'src/client/scripts/store/state';
 
-interface CustomDateRangePickerProps {
+interface DateRangePickerProps {
   activeDateRangeId?: string;
   onClick: VoidCallback<null>;
   dispatch: any;
@@ -21,7 +21,7 @@ const mapStateToProps = (state: AppState) => {
 }
 
 @connect(mapStateToProps)
-class CustomDateRangePicker extends React.Component<CustomDateRangePickerProps, any> {
+class DateRangePicker extends React.Component<DateRangePickerProps, any> {
 
   public render(): JSX.Element {
 
@@ -43,9 +43,9 @@ class CustomDateRangePicker extends React.Component<CustomDateRangePickerProps, 
     };
 
     const content = dateRangePickerOptions.map(item => (
-      <div id={item.key} className="custom-date-range-picker-option" onClick={this.props.onClick}>
-          <p id={item.key} className="custom-date-range-picker-option-title">{item.title}</p>
-          <p id={item.key} className="custom-date-range-picker-option-sub-title">{
+      <div id={item.key} className="date-range-picker-option" onClick={this.props.onClick}>
+          <p id={item.key} className="date-range-picker-option-title">{item.title}</p>
+          <p id={item.key} className="date-range-picker-option-sub-title">{
             item.key === 'DAY' ?
               Moment.utc().local().format('MMM DD, YYYY') :
               (item.key === 'WEEK' ?
@@ -54,7 +54,7 @@ class CustomDateRangePicker extends React.Component<CustomDateRangePickerProps, 
                 Moment.utc().local().format('MMM DD, YYYY') + ' - ' +
                   Moment.utc().local().add(-30, 'days').format('MMM DD, YYYY'))
           }</p>
-          {item.key !== 'MONTH' && <Divider className="custom-date-range-picker-option-divider"/>}
+          {item.key !== 'MONTH' && <Divider className="date-range-picker-option-divider"/>}
       </div>
     ));
 
@@ -68,7 +68,7 @@ class CustomDateRangePicker extends React.Component<CustomDateRangePickerProps, 
                               )
                           );
     return (
-      <div className="custom-date-range-picker">
+      <div className="date-range-picker">
         <Popover placement="bottom" content={content}>
           <Button type="default">{displayText}</Button>
         </Popover>
@@ -77,4 +77,4 @@ class CustomDateRangePicker extends React.Component<CustomDateRangePickerProps, 
   }
 }
 
-export default CustomDateRangePicker;
+export default DateRangePicker;

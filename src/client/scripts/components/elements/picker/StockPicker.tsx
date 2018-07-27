@@ -3,16 +3,16 @@ import { isEmpty } from 'lodash';
 import { Select } from 'antd';
 import { Dispatch } from 'redux';
 import { VoidCallback, StockTicker } from 'src/client/scripts/data_models/general';
-import 'src/build/client/scripts/components/elements/list/styles/CustomList.css';
+import 'src/build/client/scripts/components/elements/picker/styles/StockPicker.css';
 const Option = Select.Option;
 
-interface CustomListProps {
+interface StockPickerProps {
   data : StockTicker[];
   onChange: VoidCallback<null>;
   dispatch: any;
 }
 
-class CustomList extends React.Component<CustomListProps, any> {
+class StockPicker extends React.Component<StockPickerProps, any> {
 
   public render(): JSX.Element {
 
@@ -21,7 +21,7 @@ class CustomList extends React.Component<CustomListProps, any> {
     }
 
     return (
-      <div className="custom-list">
+      <div className="stock_picker">
         <Select
           showSearch={true}
           placeholder="Choose a stock"
@@ -38,4 +38,4 @@ class CustomList extends React.Component<CustomListProps, any> {
   }
 }
 
-export default CustomList;
+export default StockPicker;

@@ -1,16 +1,17 @@
 import * as React from 'react';
 import ChartContainer from 'src/client/scripts/containers/chart/ChartContainer';
-import CustomList from 'src/client/scripts/components/elements/list/CustomList';
 import { Dispatch } from 'redux';
 import * as Moment from 'moment';
-import { updateFiltersStock, updateFiltersDate } from 'src/client/scripts/store/actions';
-import CustomDateRangePicker from 'src/client/scripts/components/elements/picker/CustomDateRangePicker';
+import { updateFiltersStock, updateFiltersDate, updateFiltersToggle } from 'src/client/scripts/store/actions';
+import DateRangePicker from 'src/client/scripts/components/elements/picker/DateRangePicker';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
 import 'src/build/client/scripts/containers/stock/styles/StockContainer.css';
 import { StockTicker, KVMap } from 'src/client/scripts/data_models/general';
 import { get } from 'lodash';
 import { AppState } from 'src/client/scripts/store/state';
+import StockPicker from 'src/client/scripts/components/elements/picker/StockPicker';
+import TogglePicker from '../../components/elements/picker/TogglePicker';
 
 interface StockContainerProps {
   dispatch?: Dispatch<any>;
@@ -37,16 +38,21 @@ export default class StockContainer extends React.Component<StockContainerProps,
 			<div className="stock-container">
         <Row>
           <Col span={6}>
-            <CustomList
+            <StockPicker
               data={this.props.validStocks}
               onChange={this.handleOnStockChange}
               dispatch={this.props.dispatch}
     				/>
           </Col>
           <Col span={6}>
-            <CustomDateRangePicker
+            <DateRangePicker
               onClick={this.handleOnDateRangeChange}
               dispatch={this.props.dispatch}
+            />
+          </Col>
+          <Col span={12}>
+            <TogglePicker
+              onChange={this.handleOnToggleChange}
             />
           </Col>
         </Row>
@@ -55,9 +61,15 @@ export default class StockContainer extends React.Component<StockContainerProps,
     );
   }
 
-  private handleOnStockChange = (value) => {
+  private handleOnStockChange = (item) => {
     this.props.dispatch(updateFiltersStock({
-      symbol: value
+      symbol: item
+    }));
+  }
+
+  private handleOnToggleChange = (item) => {
+    this.props.dispatch(updateFiltersToggle({
+      activeToggle: item.target.value
     }));
   }
 

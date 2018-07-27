@@ -15,8 +15,8 @@ export interface StockData {
   lastRefreshed: string;
   interval: string;
   outputSize: string;
-	timeZone: string;
-	values: StockValue[];
+  timeZone: string;
+  values: StockValue[];
 }
 
 export interface StockValue {
@@ -39,7 +39,8 @@ export interface StockArticle {
 	description: string;
 	url: string;
 	urlToImage: string;
-	publishedAt: string;
+	publishedAt: Date;
+	computedStockValue: number;
 }
 
 

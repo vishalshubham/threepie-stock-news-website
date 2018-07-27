@@ -63,12 +63,13 @@ export const dataTransformer = (item): StockData => {
 export const articleTransformer = (item): StockArticle => {
   return {
     source: get(item, 'source'),
-	  author: get(item, 'author'),
-	  title: get(item, 'title'),
-	  description: get(item, 'description'),
-	  url: get(item, 'url'),
-	  urlToImage: get(item, 'urlToImage'),
-	  publishedAt: get(item, 'publishedAt')
+    author: get(item, 'author'),
+    title: get(item, 'title'),
+    description: get(item, 'description'),
+    url: get(item, 'url'),
+    urlToImage: get(item, 'urlToImage'),
+    publishedAt: get(item, 'publishedAt'),
+    computedStockValue: get(item, 'computedStockValue')
   };
 }
 
