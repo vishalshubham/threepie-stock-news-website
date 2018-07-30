@@ -13,4 +13,11 @@ export interface StockTicker {
   name: string;
 }
 
+export interface TimePeriod {
+  startDateTime: Date;
+  endDateTime: Date;
+  code: string;
+  description: string;
+}
+
 export type VoidCallback<T extends KVMap<any> | null> = (...T) => void;

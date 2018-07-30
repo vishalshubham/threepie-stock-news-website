@@ -55,9 +55,63 @@
   }
 }
 
-.line-chart-tooltip {
-
+.line-chart-stock-tooltip {
 	font-family: inherit;
+
+	p {
+		margin: 0;
+	}
+
+  img {
+    width: 5.3rem;
+    height: 5.3rem;
+  }
+
+	&-title {
+		font-size: 13px;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  &-news-title {
+    width: 20rem;
+		font-size: 13px;
+    margin: 0;
+    font-weight: bold;
+  }
+
+	&-sub-title {
+		font-size: 11px;
+		margin: 0;
+  }
+
+  &-text {
+		font-size: 13px;
+		margin: 0;
+	}
+
+	&-divider {
+		margin: 5px 0;
+	}
+
+	&-container {
+		margin: -6px -6px;
+  }
+
+  &--horizontal {
+    padding-left: 1rem;
+    float: right;
+  }
+
+  &-link {
+		font-size: 11px;
+  }
+}
+
+
+.line-chart-news-tooltip {
+  font-family: inherit;
+  height: 5.6rem;
 
 	p {
 		margin: 0;

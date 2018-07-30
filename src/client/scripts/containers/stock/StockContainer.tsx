@@ -7,7 +7,7 @@ import DateRangePicker from 'src/client/scripts/components/elements/picker/DateR
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
 import 'src/build/client/scripts/containers/stock/styles/StockContainer.css';
-import { StockTicker, KVMap } from 'src/client/scripts/data_models/general';
+import { StockTicker, KVMap, TimePeriod } from 'src/client/scripts/data_models/general';
 import { get } from 'lodash';
 import { AppState } from 'src/client/scripts/store/state';
 import StockPicker from 'src/client/scripts/components/elements/picker/StockPicker';
@@ -15,16 +15,8 @@ import TogglePicker from '../../components/elements/picker/TogglePicker';
 
 interface StockContainerProps {
   dispatch?: Dispatch<any>;
-  validStocks?: StockTicker[];
 }
 
-const mapStateToProps = (state: AppState) => {
-  return {
-    validStocks: state.usageState.validStocks
-  }
-}
-
-@connect(mapStateToProps)
 export default class StockContainer extends React.Component<StockContainerProps, any> {
 
   constructor(props) {
@@ -39,7 +31,6 @@ export default class StockContainer extends React.Component<StockContainerProps,
         <Row>
           <Col span={6}>
             <StockPicker
-              data={this.props.validStocks}
               onChange={this.handleOnStockChange}
               dispatch={this.props.dispatch}
     				/>

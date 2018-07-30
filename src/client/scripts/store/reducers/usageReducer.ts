@@ -5,14 +5,16 @@ import { Action,
           FETCH_VALID_STOCKS_ACTION,
           UPDATE_FILTERS_STOCK,
           UPDATE_FILTERS_DATE, 
-          UPDATE_FILTERS_TOGGLE} from 'src/client/scripts/store/actions';
+          UPDATE_FILTERS_TOGGLE,
+          FETCH_VALID_PERIODS_ACTION} from 'src/client/scripts/store/actions';
 import { UsageState } from 'src/client/scripts/store/states/usage';
 
 const INITIAL_STATE: UsageState = {
   activeStock: '',
   activeDateRangeId: '',
   activeToggle: 'both',
-  validStocks: []
+  validStocks: [],
+  validPeriods: []
 };
 
 const REDUCERS = {
@@ -32,11 +34,23 @@ const REDUCERS = {
     ...currentState,
     validStocks: action.payload
   }),
-  [FETCH_VALID_STOCKS_ACTION.REQUEST]: (currentState: StockInfoState, action: Action) => ({
+  [FETCH_VALID_STOCKS_ACTION.REQUEST]: (currentState: UsageState, action: Action) => ({
     ...currentState,
     validStocks: []
   }),
-  [FETCH_VALID_STOCKS_ACTION.ERROR]: (currentState: StockInfoState, action: Action) => ({
+  [FETCH_VALID_STOCKS_ACTION.ERROR]: (currentState: UsageState, action: Action) => ({
+    ...currentState,
+    validStocks: []
+  }),
+  [FETCH_VALID_PERIODS_ACTION.SUCCESS]: (currentState: UsageState, action: Action) => ({
+    ...currentState,
+    validPeriods: action.payload
+  }),
+  [FETCH_VALID_PERIODS_ACTION.REQUEST]: (currentState: UsageState, action: Action) => ({
+    ...currentState,
+    validStocks: []
+  }),
+  [FETCH_VALID_PERIODS_ACTION.ERROR]: (currentState: UsageState, action: Action) => ({
     ...currentState,
     validStocks: []
   }),

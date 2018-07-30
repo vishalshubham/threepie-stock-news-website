@@ -3,20 +3,23 @@ import { isEmpty } from 'lodash';
 import { Dispatch } from 'redux';
 import * as Moment from 'moment';
 import { connect } from 'react-redux';
-import { VoidCallback } from 'src/client/scripts/data_models/general';
+import { VoidCallback, TimePeriod } from 'src/client/scripts/data_models/general';
 import { Popover, Button, Divider } from 'antd';
 import 'src/build/client/scripts/components/elements/picker/styles/DateRangePicker.css';
 import { AppState } from 'src/client/scripts/store/state';
+import classNames from 'src/client/scripts/utils/classNames';
 
 interface DateRangePickerProps {
   activeDateRangeId?: string;
+  validPeriods?: TimePeriod[];
   onClick: VoidCallback<null>;
   dispatch: any;
 }
 
 const mapStateToProps = (state: AppState) => {
   return {
-    activeDateRangeId: state.usageState.activeDateRangeId
+    activeDateRangeId: state.usageState.activeDateRangeId,
+    validPeriods: state.usageState.validPeriods
   }
 }
 
@@ -24,16 +27,23 @@ const mapStateToProps = (state: AppState) => {
 class DateRangePicker extends React.Component<DateRangePickerProps, any> {
 
   public render(): JSX.Element {
+    const activeDateRangeId = this.props.activeDateRangeId;
 
     const dateRangePickerOptions = [{
       key: 'DAY',
       title: 'Past 1 day'
     },{
+      key: 'TWO_DAYS',
+      title: 'Past 2 days'
+    },{
+      key: 'THREE_DAYS',
+      title: 'Past 3 days'
+    },{
       key: 'WEEK',
-      title: 'Past 1 week'
+      title: 'Past week'
     },{
       key: 'MONTH',
-      title: 'Past 1 month'
+      title: 'Past month'
     }];
 
     const radioStyle = {
@@ -42,29 +52,42 @@ class DateRangePicker extends React.Component<DateRangePickerProps, any> {
       lineHeight: '30px',
     };
 
-    const content = dateRangePickerOptions.map(item => (
-      <div id={item.key} className="date-range-picker-option" onClick={this.props.onClick}>
-          <p id={item.key} className="date-range-picker-option-title">{item.title}</p>
-          <p id={item.key} className="date-range-picker-option-sub-title">{
-            item.key === 'DAY' ?
-              Moment.utc().local().format('MMM DD, YYYY') :
-              (item.key === 'WEEK' ?
-                Moment.utc().local().format('MMM DD, YYYY') + ' - ' +
-                  Moment.utc().local().add(-7, 'days').format('MMM DD, YYYY') :
-                Moment.utc().local().format('MMM DD, YYYY') + ' - ' +
-                  Moment.utc().local().add(-30, 'days').format('MMM DD, YYYY'))
-          }</p>
-          {item.key !== 'MONTH' && <Divider className="date-range-picker-option-divider"/>}
+    const content = this.props.validPeriods.map(item => (
+      <div>
+        <div id={item.code}
+          className={classNames(
+            'date-range-picker-option',
+            {'activeDateRangeId' : item.code === activeDateRangeId}
+          )}
+          onClick={this.props.onClick}>
+
+          <p id={item.code} className="date-range-picker-option-title">{item.description}</p>
+          <p id={item.code} className="date-range-picker-option-sub-title">{
+            Moment(item.startDateTime, Moment.ISO_8601).utc().local().format('MMM DD, YYYY') + ' - ' +
+            Moment(item.endDateTime, Moment.ISO_8601).utc().local().format('MMM DD, YYYY')
+          }</p>  
+        </div>
+        {item.code !== 'MONTH' && <Divider className="date-range-picker-option-divider"/>}
       </div>
     ));
 
-    const displayText = isEmpty(this.props.activeDateRangeId) ? 'Choose Time Range' :
-                          (
-                            this.props.activeDateRangeId === 'DAY' ?
-                              'Past 1 day' :
-                              (
-                                this.props.activeDateRangeId === 'WEEK' ?
-                                 'Past 1 week' : 'Past 1 month'
+    const displayText = isEmpty(this.props.activeDateRangeId)
+                          ? 'Choose Time Range'
+                          : (
+                            this.props.activeDateRangeId === this.props.validPeriods[0].code
+                              ? this.props.validPeriods[0].description
+                              : (
+                                this.props.activeDateRangeId === this.props.validPeriods[1].code
+                                ? this.props.validPeriods[1].description
+                                : (
+                                  this.props.activeDateRangeId === this.props.validPeriods[2].code
+                                  ? this.props.validPeriods[2].description
+                                  : (
+                                    this.props.activeDateRangeId === this.props.validPeriods[3].code
+                                    ? this.props.validPeriods[3].description
+                                    : this.props.validPeriods[4].description
+                                  )
+                                )
                               )
                           );
     return (

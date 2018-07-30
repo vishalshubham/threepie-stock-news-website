@@ -159,21 +159,21 @@ export class LineChart extends React.Component<LineChartProps, any> {
                     point.tooltip.title;
     if (point.type === 'news') {
       return (
-        <div className="line-chart-tooltip">
+        <div className="line-chart-news-tooltip">
           <img alt="Article Image" src={point.tooltip.urlToImage} />
-          <div className="line-chart-tooltip--horizontal">
-            <p className="line-chart-tooltip-news-title">{title}</p>
+          <div className="line-chart-news-tooltip--horizontal">
+            <p className="line-chart-news-tooltip-news-title">{title}</p>
             <hr/>
-            <p className="line-chart-tooltip-sub-title">{date + ' at ' + time}</p>
-            <a className="line-chart-tooltip-link" href={point.tooltip.url} target="_blank" > More Info > </a>
+            <p className="line-chart-news-tooltip-sub-title">{date + ' at ' + time}</p>
+            <a className="line-chart-news-tooltip-link" href={point.tooltip.url} target="_blank" > More Info > </a>
           </div>
         </div>);
     }
     return (
-      <div className="line-chart-tooltip">
-        <p className="line-chart-tooltip-title">{'$ ' + point.tooltip.title}</p>
+      <div className="line-chart-stock-tooltip">
+        <p className="line-chart-stock-tooltip-title">{'$ ' + point.tooltip.title}</p>
         <hr/>
-        <p className="line-chart-tooltip-sub-title">{date + ' at ' + time}</p>
+        <p className="line-chart-stock-tooltip-sub-title">{date + ' at ' + time}</p>
       </div>);
   };
 

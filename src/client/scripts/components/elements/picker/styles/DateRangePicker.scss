@@ -1,32 +1,47 @@
 .date-range-picker-option {
+	cursor: pointer;
 	font-family: inherit;
+	width: 220px;
+	padding-left: 5px;
 
-		p {
-			margin: 0;
-		}
+	p {
+		margin: 0;
+	}
 
-		&-title {
-			font-size: 14px;
-			font-weight: bolder; 
-			margin: 0;
-		}
+	&-title {
+		font-size: 14px;
+		font-weight: 600;
+		margin: 0;
+	}
 
-		&-sub-title {
-			font-size: 11px;
-			margin: 0;
-		}
+	&-sub-title {
+		font-size: 11px;
+		margin: 0;
+	}
 
-		&-divider {
-			margin: 5px 0;
-		}
+	&-divider {
+		margin: 5px 0 3px;
+	}
 
-		&-container {
-			margin: -6px -6px;
-		}
+	&-container {
+		margin: -6px -6px;
+	}
+}
+
+.date-range-picker-option.activeDateRangeId {
+	background: #f5f5f5;
+}
+
+.date-range-picker-option:hover {
+	background: #E9F7FE;
 }
 
 .date-range-picker {
 	.ant-btn {
 		width: 240px;
 	}
+}
+
+.ant-popover-inner-content {
+	padding: 5px 5px;
 }

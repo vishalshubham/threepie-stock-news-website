@@ -18,10 +18,16 @@ export default class APIGateway {
     return AxiosDataRequester.get(`${APIGateway.VALID_STOCKS_API}`, params, timeout);
   }
 
+  public static fetchValidPeriods(params, timeout?): Promise<any> {
+    return AxiosDataRequester.get(`${APIGateway.VALID_PERIODS_API}`, params, timeout);
+  }
+
   private static readonly BASE_API = '/api/v1';
   private static readonly STOCKS_API = `${APIGateway.BASE_API}` +
     '/ticker/stock-and-news';
   private static readonly VALID_STOCKS_API = `${APIGateway.STOCKS_API}` +
     '/valid-stocks';
+  private static readonly VALID_PERIODS_API = `${APIGateway.STOCKS_API}` +
+    '/valid-time-periods';
 }
 

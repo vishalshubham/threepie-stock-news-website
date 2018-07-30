@@ -2,16 +2,26 @@ import * as React from 'react';
 import { isEmpty } from 'lodash';
 import { Select } from 'antd';
 import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { VoidCallback, StockTicker } from 'src/client/scripts/data_models/general';
 import 'src/build/client/scripts/components/elements/picker/styles/StockPicker.css';
+import { AppState } from 'src/client/scripts/store/state';
 const Option = Select.Option;
 
 interface StockPickerProps {
-  data : StockTicker[];
+  data?: StockTicker[];
   onChange: VoidCallback<null>;
   dispatch: any;
 }
 
+const mapStateToProps = (state: AppState) => {
+  return {
+    data: state.usageState.validStocks,
+    validPeriods: state.usageState.validPeriods
+  }
+}
+
+@connect(mapStateToProps)
 class StockPicker extends React.Component<StockPickerProps, any> {
 
   public render(): JSX.Element {
