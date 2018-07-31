@@ -34,18 +34,32 @@ export default class AxiosDataRequester {
  	}
 
  	public static async post(url: string, data: KVMap<any>, timeout?: number, params?: KVMap<any>) {
- 		try {
- 			const response: AxiosResponse = await axios.post(url, data, {
- 				baseURL,
- 				withCredentials,
- 				timeout,
- 				params
- 			});
- 			return response.data;
- 		} catch (error) {
- 			console.error('API: ' + url + ' failed to get result');
- 			throw error;
- 		}
- 	}
+		try {
+			const response: AxiosResponse = await axios.post(url, data, {
+				baseURL,
+				withCredentials,
+				timeout,
+				params
+			});
+			return response.data;
+		} catch (error) {
+			console.error('API: ' + url + ' failed to get result');
+			throw error;
+		}
+	}
+
+	public static async put(url: string, data: KVMap<any>, timeout?: number, params?: KVMap<any>) {
+		try {
+			const response: AxiosResponse = await axios.put(baseURL + url, data, {
+				baseURL,
+				timeout,
+				params
+			});
+			return response.data;
+		} catch (error) {
+			console.error('API: ' + url + ' failed to get result');
+			throw error;
+		}
+	}
 }
 
